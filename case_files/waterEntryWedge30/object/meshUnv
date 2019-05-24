@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo -e "Meshing from File"
+
+ideasUnvToFoam oversetMesh.unv > logMeshing
+
+echo -e "creating Zones and sets"
+
+topoSet >> logMeshing
+
+echo -e "Changing patch type"
+
+changeDictionary >> logMeshing
+
+
+
+
+

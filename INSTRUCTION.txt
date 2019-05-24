@@ -1,0 +1,70 @@
+This file contains the requirements, and steps to run the simulation.
+
+Requirements:
+    OpenFOAM v1806
+    python 3.5+
+    paraview
+    salome-meca 2018 (for modelling)
+
+Note: 	This case file cannot be run using OpenFOAM v4.0 or v5.0 or v6.0 as they don't have overset funtionality.
+		Please use OpenFOAM v1806(tested) provided by ESI Group.
+		If OpenFOAM v1806 install packages are not available, please use docker for installing OpenFOAM.
+		If you need OpenFOAM v1806 'install' and 'run' docker script. Please mail me I'll be happy to provide.
+		Download it from https://github.com/Vignesh-S-P/OpenFOAM-v1806-Docker-Scripts.git
+
+Instructions:
+The Project comprises of two test cases
+    1. Wedge 30 degree
+    2. Stable Wedge
+each test case can be run separately and the result can be compared.
+
+To run a test case follow the below mentioned steps.
+
+Step 1: 
+    Make sure there are 3 directories namely cad, domain, and object for each test cases.
+
+Step 2:
+    Open terminal and cd to the object directory.
+    Example:    "cd $HOME/pathToDirectory/stableWedge/object"
+            or  "cd $HOME/pathToDirectory/waterEntryWedge30/object" 
+
+Step 3:
+	Please make sure that oversetMesh.unv file is present in the object directory.
+    If not then copy it from cad directory.
+    
+  	Use the command "chmod +x clean" to make the 'clean' bash file as an executable program.
+	Similarly, "chmod +x meshUnv" to make 'meshUnv' bash file as an executable program.
+
+	Run the bash script in terminal
+    
+    ./clean     ->  cleaning the case.
+    ./meshUnv   ->  to create overset grid of the object.
+
+Step 4:
+    Change directory to domain directory.
+    Example:    "cd ../domain"
+
+    Then run bash script in terminal
+
+    ./clean     ->  cleaning the case.
+    ./setup     ->  meshing, and setting up the case.
+    ./run       ->  run the simulation parallel.
+
+Step 5:
+    Use paraview to see the result using command 'paraFoam'.
+
+Step 6:
+    Run the python script for plotting the average forces.
+    "python3 plot.py" from the domain directory.
+
+
+These above steps are common for both the test cases.
+
+ 
+
+For any Queries please contact
+    Name:   Vignesh.S.P
+    Mail:   vikkypandiaraj@gmail.com
+    LinkedIn: https://www.linkedin.com/in/vignesh-s-p/
+
+

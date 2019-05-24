@@ -1,0 +1,95 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1806                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+domain
+{
+    xMin    -2.5;
+    xMax    2.5;
+    yMin    0;
+    yMax    0.05;
+    zMin    -5.5;
+    zMax    -0.5;
+}
+scale   1;
+
+vertices
+(
+    ($:domain.xMin $:domain.yMin $:domain.zMin)
+    ($:domain.xMax $:domain.yMin $:domain.zMin)
+    ($:domain.xMax $:domain.yMax $:domain.zMin)
+    ($:domain.xMin $:domain.yMax $:domain.zMin)
+
+    ($:domain.xMin $:domain.yMin $:domain.zMax)
+    ($:domain.xMax $:domain.yMin $:domain.zMax)
+    ($:domain.xMax $:domain.yMax $:domain.zMax)
+    ($:domain.xMin $:domain.yMax $:domain.zMax)
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) (100 1 100) simpleGrading (1 1 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+    // Dummy patch to trigger overset interpolation before any other
+    // bcs
+    oversetPatch
+    {
+        type overset;
+        faces ();
+    }
+
+    stationaryWalls
+    {
+        type wall;
+        faces
+        (
+            (0 3 2 1)
+            (2 6 5 1)
+            //(1 5 4 0)
+            //(3 7 6 2)
+            (0 4 7 3)
+        );
+    }
+    atmosphere
+    {
+        type patch;
+        faces
+        (
+            (4 5 6 7)
+        );
+    }
+    frontAndBack
+    {
+	type empty;
+	faces
+	(
+	    (1 5 4 0)
+	    (3 7 6 2)
+	);
+
+    }
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //

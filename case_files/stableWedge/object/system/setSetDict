@@ -1,0 +1,2 @@
+cellSet floatingObjectSet new boxToCell (-10 -10 -10) (10 10 10)
+cellZoneSet floatingObject new setToCellZone floatingObjectSet

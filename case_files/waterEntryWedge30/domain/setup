@@ -1,0 +1,20 @@
+#!/bin/bash
+
+
+echo -e "Creating Domain"
+
+blockMesh > logMeshing
+
+echo -e "Merging Overset Object to Domain"
+
+mergeMeshes . ../object -overwrite >> logMeshing
+
+echo -e "Creating Zones"
+
+topoSet >> logMeshing
+
+cp -r 0.orig 0
+
+echo -e "Setting values to fields"
+
+setFields > logSetFields

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo -e "meshing From UNV file"
+ideasUnvToFoam oversetMesh.unv > logMeshing
+
+echo -e "Change patch type"
+changeDictionary >> logMeshing
+
+echo -e "Creating Zones"
+setSet -batch system/setSetDict >> logMeshing

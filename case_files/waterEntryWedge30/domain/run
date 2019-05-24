@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo -e "Decomposing"
+
+decomposePar > logrun
+
+echo -e "Running in parallel"
+
+mpirun -np 4 overInterDyMFoam -parallel >> logrun | tail -f logrun
